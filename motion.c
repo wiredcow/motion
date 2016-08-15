@@ -769,7 +769,7 @@ static int motion_init(struct context *cnt)
     rotate_init(cnt); /* rotate_deinit is called in main */
 
     /* Capture first image, or we will get an alarm on start */
-    if (cnt->video_dev > 0) {
+    if (cnt->video_dev >= 0) {
         int i;
 
         for (i = 0; i < 5; i++) {
@@ -1470,7 +1470,7 @@ static void *motion_loop(void *arg)
                      * If we don't get a valid frame for a long time, try to close/reopen device
                      * Only try this when a device is open
                      */
-                    if ((cnt->video_dev > 0) &&
+                    if ((cnt->video_dev >= 0) &&
                         (cnt->missing_frame_counter == (MISSING_FRAMES_TIMEOUT * 4) * cnt->conf.frame_limit)) {
                         MOTION_LOG(ERR, TYPE_ALL, NO_ERRNO, "%s: Video signal still lost - "
                                    "Trying to close video device");
